@@ -113,10 +113,10 @@ def generate():
     paragraphs = story.split('\n')
     images = []
 
-    # for paragraph in paragraphs[:5]:
-    #     if paragraph.strip():
-    #         image_url = generate_image_for_paragraph(paragraph)
-    #         images.append(image_url)
+    for paragraph in paragraphs[:5]:
+      if paragraph.strip():
+        image_url = generate_image_for_paragraph(paragraph)
+        images.append(image_url)
 
     return jsonify({'story': paragraphs, 'images': images})
 
