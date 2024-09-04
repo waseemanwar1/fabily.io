@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Interactive Story Generator</title>
+      <style>
+          body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+          }
+          header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-bottom: 1em;
+          }
+          .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+          }
+          h1 {
+            margin-top: 0;
+          }
+          form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+          }
+          form div {
+            display: flex;
+            flex-direction: column;
+          }
+          label {
+            margin-bottom: 5px;
+            font-weight: bold;
+          }
+          select, button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+          }
+          button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            grid-column: span 2;
+          }
+          button:hover {
+            background-color: #45a049;
+          }
+          #story-output {
+            margin-top: 30px;
+          }
+          #story-output h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+          }
+          #story-output p {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            line-height: 1.6;
+          }
+          #images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+          }
+          #images img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          .story-image{
+            width: 100%;
+          }
+      </style>
+  </head>
+  <body>
+
+    <header>
+      <h1>Interactive Story Generator</h1>
+      <p>Create your own story by selecting the character features, theme, and format.</p>
+    </header>
+
+    <div class="container">
+      <form id="story-form">
+          <div>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                {% for option in gender_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="age">Age:</label>
+            <select id="age" name="age">
+                {% for option in age_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="skin_tone">Skin Tone:</label>
+            <select id="skin_tone" name="skin_tone">
+              {% for option in skin_tone_options %}
+                <option value="{{ option }}">{{ option }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="hair_color">Hair Color:</label>
+            <select id="hair_color" name="hair_color">
+                {% for option in hair_color_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="hair_style">Hair Style:</label>
+            <select id="hair_style" name="hair_style">
+                {% for option in hair_style_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="eye_color">Eye Color:</label>
+            <select id="eye_color" name="eye_color">
+                {% for option in eye_color_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="eye_shape">Eye Shape:</label>
+            <select id="eye_shape" name="eye_shape">
+                {% for option in eye_shape_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="facial_features">Facial Features:</label>
+            <select id="facial_features" name="facial_features">
+                {% for option in facial_features_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="eyebrows">Eyebrows:</label>
+            <select id="eyebrows" name="eyebrows">
+                {% for option in eyebrows_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="nose">Nose:</label>
+            <select id="nose" name="nose">
+                {% for option in nose_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="mouth">Mouth:</label>
+            <select id="mouth" name="mouth">
+                {% for option in mouth_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="clothing_style">Clothing Style:</label>
+            <select id="clothing_style" name="clothing_style">
+                {% for option in clothing_style_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="personality_traits">Personality Traits (Optional):</label>
+            <select id="personality_traits" name="personality_traits">
+                <option value="">None</option>
+                {% for option in personality_traits_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="pet_companion">Pet Companion (Optional):</label>
+            <select id="pet_companion" name="pet_companion">
+                <option value="">None</option>
+                {% for option in pet_companion_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="theme">Story Theme:</label>
+            <select id="theme" name="theme">
+                {% for option in theme_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label for="format">Story Format:</label>
+            <select id="format" name="format">
+                {% for option in format_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <button type="submit">Generate Story</button>
+      </form>
+
+      <div id="story-output">
+          <h2>Generated Story:</h2>
+          <p id="story"></p>
+          <h2>Generated Images:</h2>
+          <div id="images"></div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('story-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        fetch('/generate', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+
+          const storyOutput = document.getElementById('story-output');
+          storyOutput.innerHTML = '<h2>Generated Story:</h2>'; // Reset the story output
+
+          if (Array.isArray(data.story)) {
+            data.story.forEach((paragraph, index) => {
+              const paragraphElement = document.createElement('div');
+              paragraphElement.className = 'story-paragraph';
+              paragraphElement.textContent = paragraph;
+
+              const imageElement = document.createElement('img');
+              imageElement.className = 'story-image';
+              imageElement.src = data.images[index];
+              imageElement.alt = "Generated image";
+
+              storyOutput.appendChild(paragraphElement);
+              if(data.images[index]){
+                storyOutput.appendChild(imageElement);
+              }
+            });
+          } else {
+            console.error('Data format is incorrect:', data);
+            storyOutput.textContent = 'An error occurred while generating the story.';
+          }
+        });
+      });
+    </script>
+
+  </body>
+</html>
